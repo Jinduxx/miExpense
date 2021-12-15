@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap 4.5 CSS-->
+    <link
+            rel="stylesheet"
+            th:href="@{//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}"
+            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+            crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap JS Requirements -->
+    <script
+            th:href="@{//code.jquery.com/jquery-3.5.1.slim.min.js}"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            href="//cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            th:href="@{//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js}"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"
+    ></script>
+    <!-- My css -->
+    <link rel="stylesheet" th:href="@{style.css}"/>
+
+</head>
+<body>
+<!--<div th:with="error=${message}">-->
+<!--    <div th:if="${error} != null">-->
+<!--        <div class="alert alert-success" role="alert">-->
+<!--            <div th:text="${error}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<section class="container main-content">
+    <div class="pack">
+        <div class="company">
+            <h1>mi<strong>Expense</strong></h1>
+        </div>
+        <div>
+            <h3>
+                Login
+            </h3>
+        </div>
+        <div class="shadow p-3 mb-5">
+            <form th:action="@{/loginProcess}" th:object="${login}" method="POST">
+                <!-- ################################################################# -->
+                <div class="form-group">
+                    <input
+                            id="input1"
+                            class="form-control form-control-lg"
+                            th:field="*{email}"
+                            type="text"
+                            name="numEmail"
+                            placeholder="Email address"
+                            required
+                    />
+                </div>
+                <div>
+                    <input
+                            id="input2"
+                            th:field="*{password}"
+                            class="form-control form-control-lg"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            required
+                    />
+                </div>
+                <button style="background: rgb(8, 128, 72);"
+                        id="btn1"
+                        type="submit"
+                        class="btn btn-primary btn-lg btn-block"
+                >
+                    Log in
+                </button>
+                <p id="password">Forgotten password?</p>
+                <hr/>
+            </form>
+            <form th:action="@{/signup}" th:method="Post">
+                <button
+                        id="btn2"
+                        type="submit"
+                        class="btn btn-lg btn-block btn-lg btn-block"
+                >
+                    Create New Account
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+<script th:src="@{js/index.js}"></script>
+</script>
+</html>

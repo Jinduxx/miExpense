@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>miExpense</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous">
+    </script>
+    <!-- My css -->
+    <link rel="stylesheet" th:href="@{/home.css}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.css}">
+</head>
+<body>
+    <!-- <span th:with="message1=${session.message}">
+        <div th:if="${message1 != null}">
+            <div class="alert alert-success" role="alert">
+                <div th:text="${message1}"></div>
+            </div>
+        </div>
+    </span> -->
+    <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736">
+        <div class="container">
+            <div class="navbar-header">
+                <h2><a class="navbar-brand logo" href="#" style="font-size: larger">
+                miExpense
+                </a></h2>
+            </div>
+            <div>
+                <h3>Welcome <span th:text="${userDetail.getFirstname()+' '+ userDetail.getLastname()}"></span></h3>
+            </div>
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav navbar-nav navbar-right" style="padding-top: 27px">
+                <li class="nav-item" style="padding-right: 30px">
+                    <h3>Balance: # <span th:text="${0}"></span></h3>
+                </li>
+                <li class="nav-item dropdown" >
+                    <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="navbarDropdown"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="color:black;"
+                    >
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/processLogout}"><i class="fa fa-sign-out" aria-hidden="true">Logout</i></a></li>
+                        <li><a class="dropdown-item" th:href="@{#}">Setting</a></li>
+                        <li>
+                            <hr class="dropdown-divider"/>
+                        </li>
+                        <li><a class="dropdown-item" th:href="@{#}">friends</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+           
+        <div class="">
+            <div>
+                <div style="display: flex; justify-content: right; padding-top: 3rem;">
+                    <form th:action="@{/makePurchases/{id} (id=${userDetail.getId()}) } "  th:method="Post">
+                        <button style="margin-right: 2rem;" type="submit" class="btn btn-success btn-lg">
+                            Make Purchases
+                        </button>
+                    </form>
+                    <form th:action="@{/deposit/{id} (id=${userDetail.getId()}) }" th:method="Post">
+                        <button style="margin-right: 2rem;" type="submit" class="btn btn-success btn-lg">
+                            Credit Account
+                        </button>
+                    </form>
+                </div>
+                <span >
+                    <div th:if="${ not#lists.isEmpty(expense)}" style="padding: 3rem 4rem 3rem 2rem; border: 3px solid white; border-radius: 50px; box-shadow: 0px 0px 5px #1002ad; margin-bottom: 10px; margin-top: 30px; margin-left: 20px">
+                       <table class="table">
+                            <thead>
+                                <tr>
+                                   <th>ID</th>
+                                   <th>Purchases</th>
+                                   <th>NO of Items</th>
+                                   <th>Amount for each</th>
+                                   <th>Total Amount</th>
+                                   <th>Date</th>
+                                   <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="expenses : ${expense}">
+                                    <td th:text="${expenses.id}"></td>
+                                    <td th:text="${expenses.getDetails()}"></td>
+                                    <td th:text="${expenses.noOfItems}"></td>
+                                    <td th:text="${expenses.amountPerItem}"></td>
+                                    <td th:text="${expenses.totalAmount}"></td>
+                                    <td th:text="${expenses.getDateOfPurchases()}"></td>
+                                    <td>
+                                        <a th:href="@{/editpage/{id} (id=${expenses.getId()}) }"><button class="btn btn-primary">Edit</button></a>
+
+                                        <a th:href="@{/deletePost/{id} (id=${expenses.getId()})}"><button class="btn btn-danger">Delete</button></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                       </table> 
+                    </div>
+                    <form th:action="@{/showCashFlow/{id} (id=${userDetail.getId()}) }" th:method="Post">
+                        <button style="margin-right: 2rem;" type="submit" class="btn btn-success btn-lg">
+                            Account
+                        </button>
+                    </form>
+                </span>
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <footer></footer>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"
+    ></script>
+    <script src="https://use.fontawesome.com/aed9ef824b.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{js/home.js}"></script>
+</body>
+</html>
