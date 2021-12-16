@@ -36,6 +36,7 @@ public class UserController {
     @GetMapping("/")
     public String showFirstPage(Model model){
         model.addAttribute("login", new LoginDetail());
+        int i =1;
         return "index";
     }
 
