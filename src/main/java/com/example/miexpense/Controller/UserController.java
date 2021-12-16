@@ -4,7 +4,7 @@ import com.example.miexpense.model.Expense;
 import com.example.miexpense.model.User;
 import com.example.miexpense.payLoad.ExpenseDetail;
 import com.example.miexpense.payLoad.LoginDetail;
-import com.example.miexpense.repository.ExpenseRepo;
+import com.example.miexpense.services.ServiceImplementation.CashFlowServiceImpl;
 import com.example.miexpense.services.ServiceImplementation.ExpenseServiceImpl;
 import com.example.miexpense.services.ServiceImplementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +18,24 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 @Controller
 public class UserController {
 
     private final UserServiceImpl userService;
-    private ExpenseRepo expenseRepo;
-    private ExpenseServiceImpl expenseService;
+    private final ExpenseServiceImpl expenseService;
+    private final CashFlowServiceImpl cashFlowService;
 
     @Autowired
-    public UserController(UserServiceImpl userService, ExpenseRepo expenseRepo, ExpenseServiceImpl expenseService) {
+    public UserController(UserServiceImpl userService,
+                          ExpenseServiceImpl expenseService, CashFlowServiceImpl cashFlowService) {
         this.userService = userService;
-        this.expenseRepo = expenseRepo;
         this.expenseService = expenseService;
+        this.cashFlowService = cashFlowService;
     }
 
     @GetMapping("/")
     public String showFirstPage(Model model){
         model.addAttribute("login", new LoginDetail());
-        int i =1;
         return "index";
     }
 
@@ -56,7 +55,22 @@ public class UserController {
             return "redirect:/";
         }
         List<ExpenseDetail> expense = expenseService.getExpenses(user1);
-        System.out.println(expense);
+
+        int cashFlowBalance;
+        int expenseBalance;
+        if(!cashFlowService.getCashFlow(user1.getId()).isEmpty()){
+            cashFlowBalance = cashFlowService.getAmountOfIncomeByUser(user1.getId());
+            model.addAttribute("incomeBalance", cashFlowBalance);
+        } else{
+            model.addAttribute("incomeBalance", 0);
+        }
+
+        if(!expenseService.getUsersById(user1.getId()).isEmpty()){
+            expenseBalance = expenseService.getAmountOfExpensesByUser(user1.getId());
+            model.addAttribute("balance", expenseBalance);
+        } else {
+            model.addAttribute("balance", 0);
+        }
 
         model.addAttribute("expense", expense);
         model.addAttribute("userDetail", user1);
@@ -67,7 +81,6 @@ public class UserController {
     @PostMapping( "/loginProcess")
     public String loginProcess(HttpServletRequest request, @ModelAttribute("login") LoginDetail loginDetail) {
         User user = userService.getUser(loginDetail.getEmail(), loginDetail.getPassword());
-//
         HttpSession httpSession = request.getSession();
         if (user != null) {
             httpSession.setAttribute("user", user);

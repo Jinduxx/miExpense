@@ -28,13 +28,13 @@
     <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.css}">
 </head>
 <body>
-<!-- <span th:with="message1=${session.message}">
+<span th:with="message1=${session.message}">
     <div th:if="${message1 != null}">
         <div class="alert alert-success" role="alert">
             <div th:text="${message1}"></div>
         </div>
     </div>
-</span> -->
+</span>
 <div th:object="${user}">
     <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736" >
         <div class="container">
@@ -43,9 +43,9 @@
                     miExpense
                 </a></h2>
             </div>
-            <!--        <div>-->
-            <!--            <h3>Welcome <span th:text="${userDetail.getFirstname()+' '+ userDetail.getLastname()}"></span></h3>-->
-            <!--        </div>-->
+                    <div>
+                        <h3>Welcome <span th:text="${user.getFirstname()+' '+ user.getLastname()}"></span></h3>
+                    </div>
             <button
                     class="navbar-toggler"
                     type="button"
@@ -58,9 +58,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <ul class="nav navbar-nav navbar-right" style="padding-top: 27px">
-                <li class="nav-item" style="padding-right: 30px">
-                    <h3>Balance: # <span th:text="${0}"></span></h3>
-                </li>
+<!--                <li class="nav-item" style="padding-right: 30px">-->
+<!--                    <h3>Balance: # <span th:text="${0}"></span></h3>-->
+<!--                </li>-->
                 <li class="nav-item dropdown" >
                     <a
                             class="nav-link dropdown-toggle"

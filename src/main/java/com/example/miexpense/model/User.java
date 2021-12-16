@@ -1,11 +1,12 @@
 package com.example.miexpense.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Locale;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,19 +34,11 @@ public class User {
     @Column(name = "dateOfBirth", nullable = false, columnDefinition = "VARCHAR(45)")
     private String dob;
 
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private LocalDate dobb;
+
     @Column(name = "gender", nullable = false, columnDefinition = "VARCHAR(45)")
     private String gender;
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) //todo: remove
-//    private List<Expense> expenses;
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<CashFlow> cashFlow;
-
-// income field //todo: sum
-
-//    income double
-
 
     public Long getId() {
         return id;
@@ -103,22 +96,6 @@ public class User {
         this.gender = gender;
     }
 
-//    public List<Expense> getExpenses() {
-//        return expenses;
-//    }
-//
-//    public void setExpenses(List<Expense> expenses) {
-//        this.expenses = expenses;
-//    }
-
-//    public List<CashFlow> getCashFlow() {
-//        return cashFlow;
-//    }
-//
-//    public void setCashFlow(List<CashFlow> cashFlow) {
-//        this.cashFlow = cashFlow;
-//    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -129,8 +106,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", dob='" + dob + '\'' +
                 ", gender='" + gender + '\'' +
-//                ", expenses=" + expenses +
-//                ", cashFlow=" + cashFlow +
                 '}';
     }
 

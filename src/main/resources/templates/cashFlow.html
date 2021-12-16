@@ -29,13 +29,13 @@
     <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.css}">
 </head>
 <body th:object="${userDetail}">
-<!-- <span th:with="message1=${session.message}">
+<span th:with="message1=${session.message}">
     <div th:if="${message1 != null}">
         <div class="alert alert-success" role="alert">
             <div th:text="${message1}"></div>
         </div>
     </div>
-</span> -->
+</span>
 <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736" >
     <div class="container">
         <div class="navbar-header">
@@ -58,9 +58,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <ul class="nav navbar-nav navbar-right" style="padding-top: 27px">
-            <li class="nav-item" style="padding-right: 30px">
-                <h3>Balance: # <span>0000</span></h3>
-            </li>
+<!--            <li class="nav-item" style="padding-right: 30px">-->
+<!--                <h3>Balance: # <span>0000</span></h3>-->
+<!--            </li>-->
             <li class="nav-item dropdown" >
                 <a
                         class="nav-link dropdown-toggle"
@@ -86,7 +86,7 @@
 </nav>
 
     <div class="container">
-           
+
         <div class="">
             <div>
                 <!-- <div style="display: flex; justify-content: right; padding-top: 3rem;">
@@ -97,32 +97,39 @@
                         Credit Account
                     </button></a>
                 </div> -->
+                <a th:href="@{/home}" style="margin-top: 1rem; display: flex; justify-content: right">
+                    <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                    >
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <!-- <span aria-hidden="true">&times;</span> -->
+                    </button>
+                </a>
                 <span >
-                    <div th:if="${ not#lists.isEmpty(expense)}" th:if="${ not#lists.isEmpty(cashFlow)}" style="padding: 3rem 4rem 3rem 2rem; border: 3px solid white; border-radius: 50px; box-shadow: 0px 0px 5px #1002ad; margin-bottom: 10px; margin-top: 30px; margin-left: 20px">
+                    <div th:if="${ not#lists.isEmpty(cash)}" style="padding: 3rem 4rem 3rem 2rem; border: 3px solid white; border-radius: 50px; box-shadow: 0px 0px 5px #1002ad; margin-bottom: 10px; margin-top: 30px; margin-left: 20px">
                        <table class="table">
+                           <h2 style="text-align: center">CASH INCOME</h2>
                             <thead>
                                 <tr>
                                    <th>ID</th>
                                    <th>Details</th>
-                                   <th>Expenditure</th>
                                    <th>Income</th>
-                                   <th>Balance</th>
-<!--                                   <th>Date</th>-->
-<!--                                   <th></th>-->
+                                   <th>Date</th>
 
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr th:each="cashflow : ${cashFlow}" th:each="expense : ${expense}">
+                            <tbody style="text-align: center">
+                                <tr th:each="cashflow : ${cash}">
                                     <td th:text="${cashflow.getId()}"></td>
-                                    <td th:text="${expense.getDetails()}"></td>
-                                    <td th:text="${expense.totalAmount}"></td>
+                                    <td th:text="${cashflow.getDetail()}"></td>
                                     <td th:text="${cashflow.getIncome()}"></td>
-                                    <td th:text="${cashflow.getBalance() - expense.getTotalAmount()}"></td>
-<!--                                    <td th:text="${expenses.getDateOfPurchases()}"></td>-->
+                                    <td th:text="${cashflow.getDateOfIncome()}"></td>
                                 </tr>
                             </tbody>
-                       </table> 
+                       </table>
                     </div>
                 </span>
 

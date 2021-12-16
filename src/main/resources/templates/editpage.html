@@ -28,13 +28,13 @@
     <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.css}">
 </head>
 <body>
-<!-- <span th:with="message1=${session.message}">
+<span th:with="message1=${session.message}">
     <div th:if="${message1 != null}">
         <div class="alert alert-success" role="alert">
             <div th:text="${message1}"></div>
         </div>
     </div>
-</span> -->
+</span>
 <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736" th:object="${user}">
     <div class="container">
         <div class="navbar-header">
@@ -57,9 +57,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <ul class="nav navbar-nav navbar-right" style="padding-top: 27px">
-            <li class="nav-item" style="padding-right: 30px">
-                <h3>Balance: # <span>0000</span></h3>
-            </li>
+<!--            <li class="nav-item" style="padding-right: 30px">-->
+<!--                <h3>Balance: # <span>0000</span></h3>-->
+<!--            </li>-->
             <li class="nav-item dropdown" >
                 <a
                         class="nav-link dropdown-toggle"
@@ -103,7 +103,7 @@
                     </a>
                 </div>
                 <div class="">
-                    <form th:action="@{/calculate/{id} (id=${user.getId()})}" th:object="${exp}" method="post" class="purchases">
+                    <form th:action="@{/editpagesubmit/{id} (id=${user.getId()})}" th:object="${exp}" method="post" class="purchases">
                         <div class="form-group ">
                             <input
                                     type="text"
@@ -113,7 +113,7 @@
                                     class="form-control"
                                     id="details"
                                     placeholder="Item purchased"
-                                    required
+
                             />
                         </div>
                         <div class="form-group ">
@@ -125,40 +125,38 @@
                                     class="form-control"
                                     id="noOfItems"
                                     placeholder="Number of Items"
-                                    required
+
                             />
                         </div>
                         <div class="form-group">
                             <input
                                     type="text"
-                                    name="#"
+                                    name="amountPerPurchase"
                                     th:field="*{amountPerPurchase}"
                                     th:value="${exp.getAmountPerPurchase()}"
                                     class="form-control"
                                     id="amountPerPurchase"
                                     placeholder="Price per Item"
-                                    required
+
                             />
                         </div>
                         <div style="margin-top: 1rem" >
-                            <button type="submit" name="action" value="calculate" class="btn btn-info">
+                            <button type="submit" name="action" value="editcalculate" class="btn btn-info btn-lg btn-block">
                                 calculate
                             </button>
                         </div>
                         <input style="display: none" id="input" type="text" th:field="*{id}" th:value="${exp.getId()}" name="id"/>
-                        <!--                        </form>-->
+
                         <br/>
                         <div style="text-align: right;">
                             Total Amount:
                             <input type="text" th:field="*{totalAmount}" th:value="${exp.getTotalAmount()}" >
-                            <!--                            <h5><span name="totalAmount" id="totalAmount" th:field="*{totalAmount}" th:text="'Total Amount: N '+ ${Amount}"></span> </h5>-->
                         </div>
-<!--                        <button style="background: rgb(3, 56, 12);" type="submit" name="action" value="purchase" class="btn btn-success btn-lg btn-block">-->
-<!--                            purchase-->
-<!--                        </button>-->
-                        <button style="background: rgb(3, 56, 12);" type="submit" name="action" value="edit" class="btn btn-success btn-lg btn-block">
-                            Edit Purchase
-                        </button>
+                        <div>
+                            <button  type="submit" name="action" value="editSubmit" class="btn btn-success btn-lg btn-block">
+                                Edit Purchase
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

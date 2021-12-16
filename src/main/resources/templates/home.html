@@ -28,13 +28,13 @@
     <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.css}">
 </head>
 <body>
-    <!-- <span th:with="message1=${session.message}">
+    <span th:with="message1=${session.message}">
         <div th:if="${message1 != null}">
             <div class="alert alert-success" role="alert">
                 <div th:text="${message1}"></div>
             </div>
         </div>
-    </span> -->
+    </span>
     <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736">
         <div class="container">
             <div class="navbar-header">
@@ -58,7 +58,9 @@
             </button>
             <ul class="nav navbar-nav navbar-right" style="padding-top: 27px">
                 <li class="nav-item" style="padding-right: 30px">
-                    <h3>Balance: # <span th:text="${0}"></span></h3>
+                    <h6> Total Income: #<span th:text="${incomeBalance}">   </span>  |
+                        Total Money Spent: # <span th:text="${balance}">   </span>   |
+                        Balance: #<span th:text="${incomeBalance}-${balance}"></span></h6>
                 </li>
                 <li class="nav-item dropdown" >
                     <a
@@ -103,6 +105,7 @@
                 <span >
                     <div th:if="${ not#lists.isEmpty(expense)}" style="padding: 3rem 4rem 3rem 2rem; border: 3px solid white; border-radius: 50px; box-shadow: 0px 0px 5px #1002ad; margin-bottom: 10px; margin-top: 30px; margin-left: 20px">
                        <table class="table">
+                           <h1 style="text-align: center">EXPENSE DETAIL</h1>
                             <thead>
                                 <tr>
                                    <th>ID</th>
@@ -115,7 +118,7 @@
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="text-align: center">
                                 <tr th:each="expenses : ${expense}">
                                     <td th:text="${expenses.id}"></td>
                                     <td th:text="${expenses.getDetails()}"></td>
@@ -124,7 +127,8 @@
                                     <td th:text="${expenses.totalAmount}"></td>
                                     <td th:text="${expenses.getDateOfPurchases()}"></td>
                                     <td>
-                                        <a th:href="@{/editpage/{id} (id=${expenses.getId()}) }"><button class="btn btn-primary">Edit</button></a>
+                                        <a th:href="@{/editpage/{id}/{userId} (id=${expenses.getId()},
+                                        userId=${userDetail.getId()}) }"><button class="btn btn-primary">Edit</button></a>
 
                                         <a th:href="@{/deletePost/{id} (id=${expenses.getId()})}"><button class="btn btn-danger">Delete</button></a>
                                     </td>

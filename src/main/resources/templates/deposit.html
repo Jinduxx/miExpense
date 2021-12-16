@@ -28,13 +28,13 @@
     <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.css}">
 </head>
 <body th:object="${user}">
-<!-- <span th:with="message1=${session.message}">
+<span th:with="message1=${session.message}">
     <div th:if="${message1 != null}">
         <div class="alert alert-success" role="alert">
             <div th:text="${message1}"></div>
         </div>
     </div>
-</span> -->
+</span>
     <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736" >
         <div class="container">
             <div class="navbar-header">
@@ -57,9 +57,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <ul class="nav navbar-nav navbar-right" style="padding-top: 27px">
-                <li class="nav-item" style="padding-right: 30px">
-                    <h3>Balance: # <span th:text="${0}"></span></h3>
-                </li>
+<!--                <li class="nav-item" style="padding-right: 30px">-->
+<!--                    <h3>Balance: # <span th:text="${0}"></span></h3>-->
+<!--                </li>-->
                 <li class="nav-item dropdown" >
                     <a
                             class="nav-link dropdown-toggle"
@@ -86,6 +86,17 @@
     <section class="container main-content">
         <div class="pack">
             <h1 style="text-align: center;">Deposit</h1>
+            <a th:href="@{/home}">
+                <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <!-- <span aria-hidden="true">&times;</span> -->
+                </button>
+            </a>
             <form th:action="@{/calculate/{id} (id=${user.getId()})}"  th:object="${cashFlow}" method="post" class="purchases">
 <!--                <div style="text-align: right;">-->
 <!--                    Balance:-->
@@ -115,19 +126,7 @@
 
                 />
                 </div>
-                <div class="form-group">
 
-                    Balance : <input
-                        type="text"
-                        th:field="*{balance}"
-                        th:value="${cashFlow.getBalance()}"
-                        name="amountPerPurchase"
-                        class="form-control "
-                        id="amountPerPurchase"
-                        placeholder="Balance"
-
-                />
-                </div>
 <!--                <div class="form-group">-->
 
 <!--                    Deposit Amount: <input-->
@@ -141,9 +140,9 @@
 <!--                />-->
 <!--                </div>-->
                 <br/>
-                <button style="background: rgb(3, 56, 12);" type="submit" name="action" value="getBalance" class="btn btn-success btn-lg btn-block">
-                    Get Balance
-                </button>
+<!--                <button style="background: rgb(3, 56, 12);" type="submit" name="action" value="getBalance" class="btn btn-success btn-lg btn-block">-->
+<!--                    Get Balance-->
+<!--                </button>-->
                 <button style="background: rgb(3, 56, 12);" type="submit" name="action" value="deposit" class="btn btn-success btn-lg btn-block">
                     Credit Account
                 </button>

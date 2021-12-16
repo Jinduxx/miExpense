@@ -6,6 +6,7 @@ import com.example.miexpense.payLoad.ExpenseDetail;
 import com.example.miexpense.repository.ExpenseRepo;
 import com.example.miexpense.repository.UserRepo;
 import com.example.miexpense.services.ExpenseService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,8 @@ import java.util.Optional;
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
 
-    UserRepo userRepo;
-    ExpenseRepo expenseRepo;
+  private final  UserRepo userRepo;
+    private final ExpenseRepo expenseRepo;
 
     @Autowired
     public ExpenseServiceImpl(UserRepo userRepo, ExpenseRepo expenseRepo) {
@@ -38,9 +39,10 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public List<Expense> getExpenseById(Long expenseId) {
-        List<Expense> expenseList;
-        expenseList= expenseRepo.findExpenseById(expenseId);
-        return expenseList;
+//        List<Expense> expenseList;
+//        expenseList= expenseRepo.findExpenseById(expenseId);
+//        return expenseList;
+        return expenseRepo.findExpenseById(expenseId);
     }
 
 
@@ -52,7 +54,6 @@ public class ExpenseServiceImpl implements ExpenseService {
         List<Expense> expensesInfo = expenseRepo.findAllByUserId(user.getId());
 
         for (Expense exp: expensesInfo) {
-
             ExpenseDetail expenses = new ExpenseDetail();
             expenses.setId(exp.getId());
             expenses.setDetails(exp.getDetails());
@@ -62,12 +63,12 @@ public class ExpenseServiceImpl implements ExpenseService {
             expenses.setDateOfPurchases(exp.getDateOfPurchases());
             expenseDetailList.add(expenses);
         }
-
         return expenseDetailList;
     }
 
     @Override
-    public boolean editExpense(Long expenseId, String details, double noOfItems, double amountPerPurchase, double totalAmount) {
+    public boolean editExpense(Long expenseId, String details, double noOfItems,
+                               double amountPerPurchase, double totalAmount) {
         boolean status = false;
         Optional<Expense> expense = expenseRepo.findById(expenseId);
         if(expense.isPresent()){
@@ -83,13 +84,24 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public Expense deleteExpenses(Long expenseId, Long userId) {
+    public int getAmountOfExpensesByUser(@NonNull Long userId) {
+
+        return expenseRepo.sumOfExpensesByUser(userId);
+    }
+
+    @Override
+    public List<Expense> getUsersById(Long id) {
+        return expenseRepo.findAllByUserId(id);
+    }
+
+    @Override
+    public boolean deleteExpenses(Long expenseId, Long userId) {
         List<Expense> expenses = expenseRepo.findExpenseById(expenseId);
-        Expense expense = null;
         if(!expenses.isEmpty()){
-            expense = expenseRepo.deleteExpenseById(expenseId);
+            expenseRepo.deleteExpenseByIdAndUserId(expenseId,userId);
+            return true;
         }
-        return expense;
+        return false;
     }
 
     @Override

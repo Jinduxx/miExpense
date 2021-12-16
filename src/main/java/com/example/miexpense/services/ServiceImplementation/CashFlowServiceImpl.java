@@ -7,15 +7,18 @@ import com.example.miexpense.repository.CashFlowRepo;
 import com.example.miexpense.repository.ExpenseRepo;
 import com.example.miexpense.repository.UserRepo;
 import com.example.miexpense.services.CashFlowService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CashFlowServiceImpl implements CashFlowService {
 
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
     private CashFlowRepo cashFlowRepo;
     private ExpenseRepo expenseRepo;
 
@@ -42,9 +45,20 @@ public class CashFlowServiceImpl implements CashFlowService {
         return null;
     }
 
+//    @Override
+//    public double calculateBalance(CashFlow cashFlow, User user ) {
+//        int balance = expenseRepo.sumOfExpenses();
+//        return balance + cashFlow.getIncome();
+//    }
+
     @Override
-    public double calculateBalance(CashFlow cashFlow) {
-        return cashFlow.getBalance() + cashFlow.getIncome();
+    public int getAmountOfIncomeByUser(@NonNull Long userId) {
+        return cashFlowRepo.sumOfIncomeByUserId(userId);
+    }
+
+    @Override
+    public List<CashFlow> getCashFlow(Long id) {
+        return cashFlowRepo.findCashFlowByUserId(id);
     }
 
 

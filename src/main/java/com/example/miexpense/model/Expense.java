@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Expense {
+public class Expense{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,14 +31,6 @@ public class Expense {
 
     @Column(name = "totalAmount", nullable = false) //todo: sum
     private double totalAmount;
-
-//    @Column(name = "income") //todo: remove
-//    private double income;
-//
-//    @Column(name = "balance", nullable = false)
-//    private double balance;
-
-//    tub = userincomesum - totalamountsum
 
     @CreationTimestamp
     private Date dateOfPurchases;

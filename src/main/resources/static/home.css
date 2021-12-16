@@ -23,6 +23,10 @@ tr th{
     text-align: center;
 }
 
+tr td{
+    text-align: center;
+}
+
 .last-td{
     text-align: center;
 }

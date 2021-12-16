@@ -32,10 +32,15 @@ public class UserServiceImpl implements UserService {
     public User getUser(String email, String password) {
         User userInfo;
         userInfo = userRepo.findPersonByEmail(email);
-
-        if(!password.equals(userInfo.getPassword())){
+        if(userInfo == null){
             userInfo = null;
+        } else{
+            if(!password.equals(userInfo.getPassword())){
+                userInfo = null;
+            }
         }
+
+
         return userInfo;
     }
 
@@ -47,5 +52,10 @@ public class UserServiceImpl implements UserService {
             deletedUser = userRepo.deleteUserByEmail(email);
         }
         return deletedUser;
+    }
+
+    @Override
+    public User findUser(Long userId) {
+        return userRepo.findUserById(userId);
     }
 }

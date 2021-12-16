@@ -25,14 +25,8 @@ public class CashFlow {
     @Column(name = "details", nullable = false)
     private String detail;
 
-
-    @Column(name = "balance", nullable = false)
-    private double balance;
-
-
-    @OneToOne
-    @JoinColumn(name = "expenditure", referencedColumnName = "totalAmount")
-    private Expense expense;
+    @CreationTimestamp
+    private Date dateOfIncome;
 
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
