@@ -14,9 +14,8 @@ public interface ExpenseRepo extends JpaRepository<Expense, Long> {
     List<Expense> findAllByUserId(Long userId);
     @Transactional
     void deleteExpenseByIdAndUserId(Long expenseId, Long userId);
-    List<Expense> findExpenseByUserId(Long userId);
-    @Query("SELECT sum(totalAmount) from Expense")
-    int sumOfExpenses();
+    //    @Query("SELECT sum(totalAmount) from Expense")
+//    int sumOfExpenses();
 
     @Query(value = "SELECT sum(total_amount) from expense where user_id =?1 ", nativeQuery = true)
     int sumOfExpensesByUser(@NonNull Long userId);

@@ -34,7 +34,9 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String showFirstPage(Model model){
+    public String showFirstPage(Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("message");
         model.addAttribute("login", new LoginDetail());
         return "index";
     }
