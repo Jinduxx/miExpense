@@ -96,12 +96,12 @@
         <div class="">
             <div>
                 <div style="display: flex; justify-content: right; padding-top: 3rem;">
-                    <form th:action="@{/makePurchases/{id} (id=${userDetail.getId()}) } "  th:method="Post">
+                    <form th:action="@{/makePurchases} "  th:method="Post">
                         <button style="margin-right: 2rem;" type="submit" class="btn btn-success btn-lg">
                             Make Purchases
                         </button>
                     </form>
-                    <form th:action="@{/deposit/{id} (id=${userDetail.getId()}) }" th:method="Post">
+                    <form th:action="@{/deposit}" th:method="Post">
                         <button style="margin-right: 2rem;" type="submit" class="btn btn-success btn-lg">
                             Credit Account
                         </button>
@@ -132,8 +132,7 @@
                                     <td th:text="${expenses.totalAmount}"></td>
                                     <td th:text="${expenses.getDateOfPurchases()}"></td>
                                     <td>
-                                        <a th:href="@{/editpage/{id}/{userId} (id=${expenses.getId()},
-                                        userId=${userDetail.getId()}) }"><button class="btn btn-primary">Edit</button></a>
+                                        <a th:href="@{/editpage/{id} (id=${expenses.getId()})}"><button class="btn btn-primary">Edit</button></a>
 
                                         <a th:href="@{/deletePost/{id} (id=${expenses.getId()})}"><button class="btn btn-danger">Delete</button></a>
                                     </td>
@@ -141,7 +140,7 @@
                             </tbody>
                        </table> 
                     </div>
-                    <form th:action="@{/showCashFlow/{id} (id=${userDetail.getId()}) }" method="Get">
+                    <form th:action="@{/showCashFlow}" method="Get">
                         <button style="margin-right: 2rem; margin-left: 20px;" type="submit" class="btn btn-success btn-lg">
                             Account
                         </button>

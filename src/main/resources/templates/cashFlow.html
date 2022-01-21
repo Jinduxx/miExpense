@@ -122,8 +122,8 @@
                                     <td th:text="${cashflow.getIncome()}"></td>
                                     <td th:text="${cashflow.getDateOfIncome()}"></td>
                                     <td>
-                                        <form th:action="@{/deleteCashFlow/{id}/{userId}
-                                        (id=${cashflow.getId()}, userId =${userDetail.getId()})}" method="Get">
+                                        <form th:action="@{/deleteCashFlow/{id}
+                                        (id=${cashflow.getId()})}" method="Get">
                                             <button class="btn btn-danger">Delete</button>
                                         </form>
 <!--                                        <a th:href="@{/deleteCashFlow/{id}/{userId}-->

@@ -2,11 +2,8 @@ package com.example.miexpense.model;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Locale;
 
 @AllArgsConstructor
 @NoArgsConstructor

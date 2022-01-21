@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -24,19 +25,22 @@ public class CashFlowController {
         this.userService = userService;
     }
 
-    @PostMapping("/deposit/{id}")
-    public String makeDeposit(@PathVariable("id") Long userId, Model model){
+    @PostMapping("/deposit")
+    public String makeDeposit(Model model, HttpSession session){
 
-        User user = userService.findUser(userId);
+        User user1 = (User) session.getAttribute("user");
+
+        User user = userService.findUser(user1.getId());
         model.addAttribute("cashFlow", new CashFlow());
         model.addAttribute("user", user);
         return "deposit";
     }
 
-    @RequestMapping(value="/calculate/{id}", method= RequestMethod.POST, params="action=deposit")
-    public String calculateDeposit (@PathVariable("id") Long userId, @ModelAttribute("cashFlow") CashFlow cashFlow, Model model){
+    @RequestMapping(value="/calculate", method= RequestMethod.POST, params="action=deposit")
+    public String calculateDeposit (@ModelAttribute("cashFlow") CashFlow cashFlow, Model model, HttpSession session){
 
-        User user = userService.findUser(userId);
+        User user1 = (User) session.getAttribute("user");
+        User user = userService.findUser(user1.getId());
         cashFlow.setUser(user);
 
         if(cashFlowService.creditAccount(user.getId(), cashFlow))
@@ -48,12 +52,13 @@ public class CashFlowController {
         return "redirect:/home";
     }
 
-    @GetMapping("/showCashFlow/{id}")
-    public String showHome(@PathVariable("id") Long userId, Model model){
-        System.out.println(userId);
+    @GetMapping("/showCashFlow")
+    public String showHome(HttpSession session, Model model){
 
-        List<CashFlow> cash = cashFlowService.getCashFlow(userId);
-        User user = userService.findUser(userId);
+        User user1 = (User) session.getAttribute("user");
+
+        List<CashFlow> cash = cashFlowService.getCashFlow(user1.getId());
+        User user = userService.findUser(user1.getId());
 
         model.addAttribute("cash", cash);
         model.addAttribute("userDetail", user);
@@ -61,11 +66,10 @@ public class CashFlowController {
         return "cashFlow";
     }
 
-    @GetMapping("/deleteCashFlow/{id}/{userId}")
-    public String deleteCashFlow(@PathVariable("id") Long cashFlowId,
-                                 @PathVariable("userId") Long userId, Model model){
-        cashFlowService.deleteTransaction(cashFlowId, userId);
-        model.addAttribute("userId",userId);
-        return "redirect:/showCashFlow/{userId}";
+    @GetMapping("/deleteCashFlow/{id}")
+    public String deleteCashFlow(@PathVariable("id") Long cashFlowId, Model model, HttpSession session){
+        User user1 = (User) session.getAttribute("user");
+        cashFlowService.deleteTransaction(cashFlowId, user1.getId());
+        return "redirect:/showCashFlow";
     }
 }

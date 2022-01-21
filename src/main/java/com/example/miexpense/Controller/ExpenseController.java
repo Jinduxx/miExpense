@@ -25,32 +25,37 @@ public class ExpenseController {
         this.userService = userService;
     }
 
-    @PostMapping("/makePurchases/{id}")
-    public String createExpense(@PathVariable("id") Long userId, Model model){
+    @PostMapping("/makePurchases")
+    public String createExpense(Model model, HttpSession session){
 
-        User user = userService.findUser(userId);
+        User user1 = (User) session.getAttribute("user");
+        User user = userService.findUser(user1.getId());
         model.addAttribute("expense", new Expense());
         model.addAttribute("user", user);
         return "purchases";
     }
 
-    @RequestMapping(value="/calculate/{id}", method=RequestMethod.POST, params="action=purchase")
-    public String addExpenses(@PathVariable("id") Long userId, @ModelAttribute("expense") Expense expense, Model model){
-        User user = userService.findUser(userId);
+    @RequestMapping(value="/calculate", method=RequestMethod.POST, params="action=purchase")
+    public String addExpenses(@ModelAttribute("expense") Expense expense, Model model, HttpSession session){
+
+        User user1 = (User) session.getAttribute("user");
+        User user = userService.findUser(user1.getId());
 
         expense.setUser(user);
 
-        if(expenseService.makeExpenses(expense, userId))
+        if(expenseService.makeExpenses(expense, user1.getId()))
             model.addAttribute("message", "Expense made successfully");
         else
             model.addAttribute("message", "Error Making Expenses");
         return "redirect:/home";
     }
 
-    @RequestMapping(value="/calculate/{id}", method=RequestMethod.POST, params="action=calculate")
-    public String calculatePurchase(@PathVariable("id") Long userId, @ModelAttribute("expense") Expense expense, Model model){
+    @RequestMapping(value="/calculate", method=RequestMethod.POST, params="action=calculate")
+    public String calculatePurchase(@ModelAttribute("expense") Expense expense, Model model, HttpSession session){
 
-        User user = userService.findUser(userId);
+        User user1 = (User) session.getAttribute("user");
+
+        User user = userService.findUser(user1.getId());
         expense.setTotalAmount(expenseService.calculatePurchase(expense));
 
         model.addAttribute("expense", expense);
@@ -58,12 +63,13 @@ public class ExpenseController {
         return "purchases";
     }
 
-    @GetMapping(value = "/editpage/{id}/{userId}")
-    public String editPage(@PathVariable("id") Long expenseId, @PathVariable("userId") Long userId,
-                           Model model) {
+    @GetMapping(value = "/editpage/{id}")
+    public String editPage(@PathVariable("id") Long expenseId,
+                           Model model, HttpSession session) {
 
-        User user = userService.findUser(userId);
+        User user1 = (User)session.getAttribute("user");
 
+        User user = userService.findUser(user1.getId());
         if(user == null) return "redirect:/";
 
         List<Expense> exp = expenseService.getExpenseById(expenseId);
@@ -73,11 +79,11 @@ public class ExpenseController {
         return "editpage";
     }
 
-    @RequestMapping(value="/editpagesubmit/{id}", method=RequestMethod.POST, params="action=editSubmit")
-    public String editExpense(@PathVariable("id") Long userId, @ModelAttribute("exp") Expense expense, Model model){
-        System.out.println(userId);
-        User user = userService.findUser(userId);
-        System.out.println(user);
+    @RequestMapping(value="/editpagesubmit", method=RequestMethod.POST, params="action=editSubmit")
+    public String editExpense(@ModelAttribute("exp") Expense expense, Model model, HttpSession session){
+
+        User user1 = (User) session.getAttribute("user");
+        User user = userService.findUser(user1.getId());
         if(user == null) return "redirect:/";
 
         if(expenseService.editExpense(expense.getId(),expense.getDetails(),
@@ -89,10 +95,12 @@ public class ExpenseController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value="/editpagesubmit/{id}", method=RequestMethod.POST, params="action=editcalculate")
-    public String calculateEditPurchase(@PathVariable("id") Long userId, @ModelAttribute("exp") Expense expense, Model model){
+    @RequestMapping(value="/editpagesubmit", method=RequestMethod.POST, params="action=editcalculate")
+    public String calculateEditPurchase(@ModelAttribute("exp") Expense expense, Model model, HttpSession session){
 
-        User user = userService.findUser(userId);
+        User user1 = (User) session.getAttribute("user");
+
+        User user = userService.findUser(user1.getId());
         expense.setTotalAmount(expenseService.calculatePurchase(expense));
 
         model.addAttribute("exp", expense);

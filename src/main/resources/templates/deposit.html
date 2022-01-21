@@ -97,7 +97,7 @@
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
             </a>
-            <form th:action="@{/calculate/{id} (id=${user.getId()})}"  th:object="${cashFlow}" method="post" class="purchases">
+            <form th:action="@{/calculate}"  th:object="${cashFlow}" method="post" class="purchases">
                 <div class="form-group ">
                     Detail: <input
                         type="text"
