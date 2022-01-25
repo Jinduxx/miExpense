@@ -40,7 +40,7 @@
     <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736" >
         <div class="container">
             <div class="navbar-header">
-                <h2><a class="navbar-brand logo" href="#" style="font-size: larger">
+                <h2><a class="navbar-brand logo" th:href="@{/home}" style="font-size: larger">
                     miExpense
                 </a></h2>
             </div>
@@ -75,11 +75,11 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" th:href="@{/processLogout}"><i class="fa fa-sign-out" aria-hidden="true">Logout</i></a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Setting</a></li>
-                        <li>
-                            <hr class="dropdown-divider"/>
-                        </li>
-                        <li><a class="dropdown-item" th:href="@{#}">friends</a></li>
+<!--                        <li><a class="dropdown-item" th:href="@{#}">Setting</a></li>-->
+<!--                        <li>-->
+<!--                            <hr class="dropdown-divider"/>-->
+<!--                        </li>-->
+<!--                        <li><a class="dropdown-item" th:href="@{#}">friends</a></li>-->
                     </ul>
                 </li>
             </ul>
@@ -131,7 +131,7 @@
                         </div>
                         <div class="form-group">
 
-                            Amount Per Item: <input
+                            Amount Per Item:  &#8358; <input
                                 type="text"
                                 th:field="*{amountPerPurchase}"
                                 th:value="${expense.getAmountPerPurchase()}"
@@ -151,7 +151,7 @@
 <!--                        </form>-->
                         <br/>
                         <div style="text-align: right;">
-                            Total Amount:
+                            Total Amount: &#8358;
                             <input type="text" th:field="*{totalAmount}" th:value="${expense.getTotalAmount()}" >
 <!--                            <h5><span name="totalAmount" id="totalAmount" th:field="*{totalAmount}" th:text="'Total Amount: N '+ ${Amount}"></span> </h5>-->
                         </div>

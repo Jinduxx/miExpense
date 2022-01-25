@@ -40,7 +40,7 @@
     <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736">
         <div class="container">
             <div class="navbar-header">
-                <h2><a class="navbar-brand logo" href="#" style="font-size: larger">
+                <h2><a class="navbar-brand logo" th:href="@{/home}" style="font-size: larger">
                 miExpense
                 </a></h2>
             </div>
@@ -61,9 +61,9 @@
             <ul class="nav navbar-nav navbar-right" style="padding-top: 27px">
                 <li class="nav-item" style="padding-right: 30px">
                    <span>
-                       <button type="button" class="btn-success">Total Income: #<span th:text="${incomeBalance}"></span> </button>
-                       <button type="button" class="btn-success">Total Money Spent: # <span th:text="${balance}"></span> </button>
-                       <button type="button" class="btn-success">Balance: #<span th:text="${incomeBalance}-${balance}"></span></button>
+                       <button type="button" class="btn-success">Total Income: &#8358; <span th:text="${incomeBalance}"></span> </button>
+                       <button type="button" class="btn-success">Total Money Spent: &#8358; <span th:text="${balance}"></span> </button>
+                       <button type="button" class="btn-success">Balance: &#8358; <span th:text="${incomeBalance}-${balance}"></span></button>
                    </span>
 
                 </li>
@@ -80,11 +80,11 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" th:href="@{/processLogout}"><i class="fa fa-sign-out" aria-hidden="true">Logout</i></a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Setting</a></li>
-                        <li>
-                            <hr class="dropdown-divider"/>
-                        </li>
-                        <li><a class="dropdown-item" th:href="@{#}">friends</a></li>
+<!--                        <li><a class="dropdown-item" th:href="@{#}">Setting</a></li>-->
+<!--                        <li>-->
+<!--                            <hr class="dropdown-divider"/>-->
+<!--                        </li>-->
+<!--                        <li><a class="dropdown-item" th:href="@{#}">friends</a></li>-->
                     </ul>
                 </li>
             </ul>
@@ -116,8 +116,8 @@
                                    <th>ID</th>
                                    <th>Purchases</th>
                                    <th>NO of Items</th>
-                                   <th>Amount for each</th>
-                                   <th>Total Amount</th>
+                                   <th>Amount for each  &#8358;</th>
+                                   <th>Total Amount  &#8358;</th>
                                    <th>Date</th>
                                    <th></th>
 

@@ -1,4 +1,3 @@
-FROM openjdk:19
-ADD target/miExpense.jar miExpense.jar
-EXPOSE 7000
-ENTRYPOINT ["java", "-jar", "miExpense.jar"]
+FROM adoptopenjdk/openjdk11
+ADD target/miExpense-0.0.1-SNAPSHOT.jar miexpense.jar
+ENTRYPOINT ["java", "-jar", "miexpense.jar"]

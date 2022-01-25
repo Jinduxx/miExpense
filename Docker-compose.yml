@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  app-way:
+    container_name: Docker-miExpense
+    image: miexpense-image
+    build: ./
+    ports:
+      - "8083:8080"
+    depends_on:
+      - postgresqldb
+  postgresqldb:
+    container_name: postgresql-miexpense
+    image: postgres
+    volumes:
+      - /var/lib/postgres
+      - ./dbscripts/postgres:/docker-entrypoint-initdb.d
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_PASSWORD=Thewipper.
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=miExpense

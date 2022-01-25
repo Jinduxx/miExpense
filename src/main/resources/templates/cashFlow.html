@@ -40,7 +40,7 @@
 <nav class="navbar navbar-expand-lg navbar-success" style="box-shadow: 0px 0px 5px #024736" >
     <div class="container">
         <div class="navbar-header">
-            <h2><a class="navbar-brand logo" href="#" style="font-size: larger">
+            <h2><a class="navbar-brand logo" th:href="@{/home}" style="font-size: larger">
                 miExpense
             </a></h2>
         </div>
@@ -75,11 +75,11 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" th:href="@{/processLogout}"><i class="fa fa-sign-out" aria-hidden="true">Logout</i></a></li>
-                    <li><a class="dropdown-item" th:href="@{#}">Setting</a></li>
-                    <li>
-                        <hr class="dropdown-divider"/>
-                    </li>
-                    <li><a class="dropdown-item" th:href="@{#}">friends</a></li>
+<!--                    <li><a class="dropdown-item" th:href="@{#}">Setting</a></li>-->
+<!--                    <li>-->
+<!--                        <hr class="dropdown-divider"/>-->
+<!--                    </li>-->
+<!--                    <li><a class="dropdown-item" th:href="@{#}">friends</a></li>-->
                 </ul>
             </li>
         </ul>
@@ -109,7 +109,7 @@
                                 <tr>
                                    <th>ID</th>
                                    <th>Details</th>
-                                   <th>Income</th>
+                                   <th>Income &#8358;</th>
                                    <th>Date</th>
                                    <th></th>
 
