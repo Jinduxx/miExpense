@@ -2,8 +2,8 @@ package com.example.miexpense.Controller;
 
 import com.example.miexpense.model.Expense;
 import com.example.miexpense.model.User;
-import com.example.miexpense.services.ServiceImplementation.ExpenseServiceImpl;
-import com.example.miexpense.services.ServiceImplementation.UserServiceImpl;
+import com.example.miexpense.services.ExpenseService;
+import com.example.miexpense.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,11 @@ import java.util.List;
 @Controller
 public class ExpenseController {
 
-    private final ExpenseServiceImpl expenseService;
-    private final UserServiceImpl userService;
+    private final ExpenseService expenseService;
+    private final UserService userService;
 
     @Autowired
-    public ExpenseController(ExpenseServiceImpl expenseService, UserServiceImpl userService) {
+    public ExpenseController(ExpenseService expenseService, UserService userService) {
         this.expenseService = expenseService;
         this.userService = userService;
     }
@@ -35,14 +35,12 @@ public class ExpenseController {
         return "purchases";
     }
 
-    @RequestMapping(value="/calculate", method=RequestMethod.POST, params="action=purchase")
+    @PostMapping(value="/calculate", params="action=purchase")
     public String addExpenses(@ModelAttribute("expense") Expense expense, Model model, HttpSession session){
 
         User user1 = (User) session.getAttribute("user");
         User user = userService.findUser(user1.getId());
-
         expense.setUser(user);
-
         if(expenseService.makeExpenses(expense, user1.getId()))
             model.addAttribute("message", "Expense made successfully");
         else
@@ -50,11 +48,10 @@ public class ExpenseController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value="/calculate", method=RequestMethod.POST, params="action=calculate")
+    @PostMapping(value="/calculate", params="action=calculate")
     public String calculatePurchase(@ModelAttribute("expense") Expense expense, Model model, HttpSession session){
 
         User user1 = (User) session.getAttribute("user");
-
         User user = userService.findUser(user1.getId());
         expense.setTotalAmount(expenseService.calculatePurchase(expense));
 
@@ -79,7 +76,7 @@ public class ExpenseController {
         return "editpage";
     }
 
-    @RequestMapping(value="/editpagesubmit", method=RequestMethod.POST, params="action=editSubmit")
+    @PostMapping(value="/editpagesubmit", params="action=editSubmit")
     public String editExpense(@ModelAttribute("exp") Expense expense, Model model, HttpSession session){
 
         User user1 = (User) session.getAttribute("user");
@@ -95,11 +92,9 @@ public class ExpenseController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value="/editpagesubmit", method=RequestMethod.POST, params="action=editcalculate")
+    @PostMapping(value="/editpagesubmit", params="action=editcalculate")
     public String calculateEditPurchase(@ModelAttribute("exp") Expense expense, Model model, HttpSession session){
-
         User user1 = (User) session.getAttribute("user");
-
         User user = userService.findUser(user1.getId());
         expense.setTotalAmount(expenseService.calculatePurchase(expense));
 

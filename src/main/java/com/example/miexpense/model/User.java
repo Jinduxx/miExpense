@@ -13,7 +13,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
 
     @Column(name = "firstname", nullable = false, columnDefinition = "VARCHAR(150)")
@@ -30,9 +29,6 @@ public class User {
 
     @Column(name = "dateOfBirth", nullable = false, columnDefinition = "VARCHAR(45)")
     private String dob;
-
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    private LocalDate dobb;
 
     @Column(name = "gender", nullable = false, columnDefinition = "VARCHAR(45)")
     private String gender;

@@ -39,18 +39,12 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public List<Expense> getExpenseById(Long expenseId) {
-//        List<Expense> expenseList;
-//        expenseList= expenseRepo.findExpenseById(expenseId);
-//        return expenseList;
         return expenseRepo.findExpenseById(expenseId);
     }
-
-
 
     @Override
     public List<ExpenseDetail> getExpenses(User user) {
         List<ExpenseDetail> expenseDetailList = new ArrayList<>();
-        //get all expenses
         List<Expense> expensesInfo = expenseRepo.findAllByUserId(user.getId());
 
         for (Expense exp: expensesInfo) {
@@ -79,13 +73,11 @@ public class ExpenseServiceImpl implements ExpenseService {
             expenseRepo.save(expense.get());
             status = true;
         }
-
         return status;
     }
 
     @Override
     public int getAmountOfExpensesByUser(@NonNull Long userId) {
-
         return expenseRepo.sumOfExpensesByUser(userId);
     }
 
@@ -108,16 +100,4 @@ public class ExpenseServiceImpl implements ExpenseService {
     public double calculatePurchase(Expense expense) {
         return expense.getNoOfItems() * expense.getAmountPerPurchase();
     }
-
-//    @Override
-//    public double calculateMinusBalance(Expense expense) {
-//        return expense.getBalance() - expense.getTotalAmount();
-//    }
-//
-//    @Override
-//    public double calculateAddBalance(Expense expense) {
-//        return expense.getBalance() + expense.getIncome();
-//    }
-
-
 }

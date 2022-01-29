@@ -57,7 +57,6 @@ public class UserController {
             return "redirect:/";
         }
         List<ExpenseDetail> expense = expenseService.getExpenses(user1);
-
         int cashFlowBalance;
         int expenseBalance;
         if(!cashFlowService.getCashFlow(user1.getId()).isEmpty()){
@@ -93,7 +92,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/processLogout", method = RequestMethod.GET)
+    @GetMapping(value = "/processLogout")
     public String logout(HttpServletRequest request) {
 
         HttpSession session = request.getSession();

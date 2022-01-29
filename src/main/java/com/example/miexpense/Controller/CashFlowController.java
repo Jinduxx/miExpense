@@ -3,8 +3,8 @@ package com.example.miexpense.Controller;
 import com.example.miexpense.model.CashFlow;
 import com.example.miexpense.model.Expense;
 import com.example.miexpense.model.User;
-import com.example.miexpense.services.ServiceImplementation.CashFlowServiceImpl;
-import com.example.miexpense.services.ServiceImplementation.UserServiceImpl;
+import com.example.miexpense.services.CashFlowService;
+import com.example.miexpense.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,11 @@ import java.util.List;
 @Controller
 public class CashFlowController {
 
-    private final UserServiceImpl userService;
-    private final CashFlowServiceImpl cashFlowService;
+    private final UserService userService;
+    private final CashFlowService cashFlowService;
 
     @Autowired
-    public CashFlowController(CashFlowServiceImpl cashFlowService, UserServiceImpl userService) {
+    public CashFlowController(CashFlowService cashFlowService, UserService userService) {
         this.cashFlowService = cashFlowService;
         this.userService = userService;
     }
@@ -36,7 +36,7 @@ public class CashFlowController {
         return "deposit";
     }
 
-    @RequestMapping(value="/calculate", method= RequestMethod.POST, params="action=deposit")
+    @PostMapping(value="/calculate", params="action=deposit")
     public String calculateDeposit (@ModelAttribute("cashFlow") CashFlow cashFlow, Model model, HttpSession session){
 
         User user1 = (User) session.getAttribute("user");
